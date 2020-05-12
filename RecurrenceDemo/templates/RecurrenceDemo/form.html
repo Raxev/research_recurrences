@@ -1,0 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+</head>
+<body>
+<link rel="stylesheet" type="text/css" href="{% static 'recurrence/css/recurrence.css' %}">
+<script src="{% static "recurrence/js/recurrence.js" %}"></script>
+<script type="text/javascript" src="{% url 'javascript_catalog' %}"></script>
+<div>
+{#    {{ form.media }}#}
+    {% for field in form %}
+        <div>
+            {{ field }}<br><br>
+        </div>
+    {% endfor %}
+</div>
+</body>
+</html>

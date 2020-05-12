@@ -1,0 +1,24 @@
+{% load static %}<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Course List</title>
+</head>
+<body>
+COURSE LIST
+{% block body %}
+
+    {% for course in courses %}
+        <div>
+            {{ course.prefix }}
+            {{ course.number }}
+            {% for meetingtime in course.meetingtime_set.all %}
+                <div>{{ meetingtime }}</div>
+            {% endfor %}
+        <div><a href="{% url "RecurrenceDemo:detail" course.id %}">View Meeting Times</a></div>
+        </div>
+    {% endfor %}
+{% endblock %}
+</body>
+</html>

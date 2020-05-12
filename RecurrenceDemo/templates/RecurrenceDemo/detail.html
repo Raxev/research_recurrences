@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+
+<link rel="stylesheet" type="text/css" href="{% static 'recurrence/css/recurrence.css' %}">
+<script src="{% static "recurrence/js/recurrence.js" %}"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail View</title>
+</head>
+<body>
+{% block body %}
+    <h1>DETAIL VIEW</h1>
+    <h2>
+    {{ course.prefix }}
+    {{ course.number }}-
+    {{ course.section }}
+    {{ course.term }}
+    {{ course.year }}<br>
+    </h2>
+    {% for meetingtime in course.meeting_times.all %}
+        <p>
+        {{ meetingtime.type }}<br>
+        {{ meetingtime.start }} -
+        {{ meetingtime.end }}<br>
+        {{ meetingtime.recurrence.choices.0 }}
+{#        {{ meetingtime.recurrence.rrules.0.byday }} current meeting time's first rrule's days #}
+       {% for rule in meetingtime.recurrence.rrules %} {# all rrules for the current meeting time #}
+           {% if rule.byday %}
+               {{ rule.byday }}
+           {% endif %}
+        {% endfor %}
+        {% for date in meetingtime.recurrence.rdates %} {# rdates for one-off meeting times #}
+            {{ date.date }}
+        {% endfor %}
+        </p>
+        <div><a href="{% url "RecurrenceDemo:update" meetingtime.id %}">Edit Meeting Times</a></div><br><br><br>
+    {% endfor %}
+
+    <br><br>
+    <div><a href="{% url "RecurrenceDemo:course_list" %}">Course List</a></div>
+{% endblock %}
+</body>
+</html>

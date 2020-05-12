@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update View</title>
+</head>
+<body>
+{% block body %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'recurrence/css/recurrence.css' %}">
+    <script src="{% static "recurrence/js/recurrence.js" %}"></script>
+    <script type="text/javascript" src="{% url 'javascript_catalog' %}"></script>
+
+
+    UPDATE VIEW
+        <form method="POST" class="post-form">
+            {% csrf_token %}
+            {{ form.media }}
+            <div class="row">
+            {% for field in form %}
+                {% if field.name == "recurrences" %}
+                    {{ field.label_tag }} <br>
+                    {{ field }}
+                {% else %}
+                    <p>{{ field.label_tag }} {{ field }}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+            <div>
+            <p>
+                {{ meetingtime.course }}
+                {{ meetingtime.recurrence }}
+            </p>
+            </div>
+
+
+            <div><button type="submit">Submit</button></div>
+        </form>
+        <div><a href="{% url "RecurrenceDemo:course_list" %}">Course List</a></div>
+{% endblock %}
+</body>
+</html>
