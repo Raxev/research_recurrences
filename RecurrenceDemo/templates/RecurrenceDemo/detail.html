@@ -20,25 +20,26 @@
     {{ course.term }}
     {{ course.year }}<br>
     </h2>
-    {% for meetingtime in course.meeting_times.all %}
-        <p>
-        {{ meetingtime.type }}<br>
-        {{ meetingtime.start }} -
-        {{ meetingtime.end }}<br>
-        {{ meetingtime.recurrence.choices.0 }}
-{#        {{ meetingtime.recurrence.rrules.0.byday }} current meeting time's first rrule's days #}
-       {% for rule in meetingtime.recurrence.rrules %} {# all rrules for the current meeting time #}
-           {% if rule.byday %}
-               {{ rule.byday }}
-           {% endif %}
+    {% if course.meeting_times %}
+        {% for meetingtime in course.meeting_times.all %}
+            <p>
+            {{ meetingtime.type }}<br>
+            {{ meetingtime.start }} -
+            {{ meetingtime.end }}<br>
+            {{ meetingtime.recurrence.choices.0 }}
+    {#        {{ meetingtime.recurrence.rrules.0.byday }} current meeting time's first rrule's days #}
+           {% for rule in meetingtime.recurrence.rrules %} {# all rrules for the current meeting time #}
+               {% if rule.byday %}
+                   {{ rule.byday }}
+               {% endif %}
+            {% endfor %}
+            {% for date in meetingtime.recurrence.rdates %} {# rdates for one-off meeting times #}
+                {{ date.date }}
+            {% endfor %}
+            </p>
         {% endfor %}
-        {% for date in meetingtime.recurrence.rdates %} {# rdates for one-off meeting times #}
-            {{ date.date }}
-        {% endfor %}
-        </p>
-        <div><a href="{% url "RecurrenceDemo:update" meetingtime.id %}">Edit Meeting Times</a></div><br><br><br>
-    {% endfor %}
-
+    {% endif %}
+    <div><a href="{% url "RecurrenceDemo:course_update" course.id %}">Edit Course</a></div><br><br><br>
     <br><br>
     <div><a href="{% url "RecurrenceDemo:course_list" %}">Course List</a></div>
 {% endblock %}

@@ -6,7 +6,8 @@
     <title>Course List</title>
 </head>
 <body>
-COURSE LIST
+<h2>COURSE LIST</h2>
+<br>
 {% block body %}
 
     {% for course in courses %}
@@ -16,7 +17,8 @@ COURSE LIST
             {% for meetingtime in course.meetingtime_set.all %}
                 <div>{{ meetingtime }}</div>
             {% endfor %}
-        <div><a href="{% url "RecurrenceDemo:detail" course.id %}">View Meeting Times</a></div>
+
+        <div><a href="{% url "RecurrenceDemo:detail" course.id %}">View Meeting Times</a></div><br>
         </div>
     {% endfor %}
 {% endblock %}

@@ -1,16 +1,15 @@
 from django import forms
-from django.forms import modelformset_factory
+from django.forms import inlineformset_factory
 
 from RecurrenceDemo.models import MeetingTime, Course
 
 
-class MeetingTimeUpdateForm(forms.ModelForm):
-
+class MeetingTimeForm(forms.ModelForm):
     class Meta:
         """Meta class."""
 
         model = MeetingTime
-        fields = ["type", "start", "end", "recurrence", "course"]
+        exclude = ()
 
     class Media:
         js = ('recurrence/js/recurrence.js',
@@ -20,13 +19,22 @@ class MeetingTimeUpdateForm(forms.ModelForm):
         }
 
 
-# MeetingTimeFormSet = modelformset_factory(MeetingTime, fields=("type", "start", "end", "recurrence", "course"))
+MeetingTimeFormSet = inlineformset_factory(
+    Course, MeetingTime,
+    form=MeetingTimeForm,
+    fields=["type", "start", "end", "recurrence", "course"],
+    extra=2,
+    can_delete=True
+)
 
 
 class CourseForm(forms.ModelForm):
-
     class Meta:
         """Meta. class."""
 
         model = Course
         fields = "__all__"
+
+
+
+# https://docs.djangoproject.com/en/2.2/topics/forms/modelforms/#inline-formsets

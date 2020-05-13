@@ -19,7 +19,7 @@ class Course(models.Model):
 
 
 class MeetingTime(models.Model):
-    type = models.CharField(max_length=20, default="Lecture")
+    type = models.CharField(max_length=20, default="CLASS")
     start = models.TimeField(null=True, blank=True)
     end = models.TimeField(null=True, blank=True)
     recurrence = RecurrenceField(blank=True)
