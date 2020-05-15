@@ -18,6 +18,7 @@ class Course(models.Model):
         return f"{self.prefix} {self.number}-{self.section} {self.term}{self.year}"
 
 
+# MeetingInformation
 class MeetingTime(models.Model):
     type = models.CharField(max_length=20, default="CLASS")
     start = models.TimeField(null=True, blank=True)

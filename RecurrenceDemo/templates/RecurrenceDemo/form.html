@@ -7,77 +7,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Form</title>
+    <script src="{% static "recurrence/js/recurrence.js" %}"></script>
+    <script type="text/javascript" src="{% url 'javascript_catalog' %}"></script>
 </head>
 <body>
-<link rel="stylesheet" type="text/css" href="{% static 'recurrence/css/recurrence.css' %}">
-<script src="{% static "recurrence/js/recurrence.js" %}"></script>
-<script type="text/javascript" src="{% url 'javascript_catalog' %}"></script>
+
 <div>
     <h2>Course Update - Meeting Time Inline Formset</h2>
     <form method="POST" class="post-form">
         {% csrf_token %}
-        {{ form.media }}
-        <div class>
-            {{ form.as_p }} {# Course Update Form #}
-            {% crispy meeting_times %} {# Inline Formset #}
+        <div>
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        Update course
+                    </div>
+                    <div class="card-body">
+                        {% crispy form %}
+                    </div>
+                </div>
+            </div>
         </div>
-        <div><button type="submit">Submit</button></div>
+        <br><br>
     </form>
-
-
-{#    <table>#}
-{#    {{ formset.management_form|crispy }}#}
-{#        {% for form in formset.forms %}#}
-{#                <tr class="{% cycle 'row1' 'row2' %} formset_row-{{ formset.prefix }}">#}
-{#                    {% for field in form.visible_fields %}#}
-{#                    <td>#}
-                        {# Include the hidden fields in the form #}
-{#                        {% if forloop.first %}#}
-{#                            {% for hidden in form.hidden_fields %}#}
-{#                                {{ hidden }}#}
-{#                            {% endfor %}#}
-{#                        {% endif %}#}
-{#                        {{ field.errors.as_ul }}#}
-{#                        {{ field|as_crispy_field }}#}
-{#                    </td>#}
-{#                    {% endfor %}#}
-{#                </tr>#}
-{#        {% endfor %}#}
-{#    </table>#}
-
-
-
-
-
-
-
-
-{#    <h2>#}
-{#    {{ course.prefix }}#}
-{#    {{ course.number }}-#}
-{#    {{ course.section }}#}
-{#    {{ course.term }}#}
-{#    {{ course.year }}<br>#}
-{#    </h2>#}
-{#    {% for meetingtime in course.meeting_times.all %}#}
-{#        <p>#}
-{#        {{ meetingtime.type }}<br>#}
-{#        {{ meetingtime.start }} -#}
-{#        {{ meetingtime.end }}<br>#}
-{#        {{ meetingtime.recurrence.choices.0 }}#}
-{#        {{ meetingtime.recurrence.rrules.0.byday }} current meeting time's first rrule's days #}
-{#       {% for rule in meetingtime.recurrence.rrules %} {# all rrules for the current meeting time #}
-{#           {% if rule.byday %}#}
-{#               {{ rule.byday }}#}
-{#           {% endif %}#}
-{#        {% endfor %}#}
-{#        {% for date in meetingtime.recurrence.rdates %} {# rdates for one-off meeting times #}
-{#            {{ date.date }}#}
-{#        {% endfor %}#}
-{#        </p>#}
-{#    {% endfor %}#}
     <br>
-    <div><a href="{% url "RecurrenceDemo:course_list" %}">Course List</a></div>
+    <div><a href="{% url "RecurrenceDemo:course_list" %}">Back to Course List</a></div>
+    <div><a href="{% url "RecurrenceDemo:detail" course.id %}">Back to Course Detail</a></div>
 </div>
 </body>
 </html>

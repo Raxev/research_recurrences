@@ -51,6 +51,7 @@ class CourseUpdate(UpdateView):
     template_name = "RecurrenceDemo/form.html"
     form_class = CourseForm
     success_url = None
+    pk_url_kwarg = "id"
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -70,7 +71,7 @@ class CourseUpdate(UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("RecurrenceDemo:detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("RecurrenceDemo:detail", kwargs={"id": self.object.id})
 
     # def get_form(self, form_class=None):
     # FormSet = modelformset_factory(Course, exclude=("id", ))
