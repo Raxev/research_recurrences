@@ -20,11 +20,16 @@ class Course(models.Model):
 
 # MeetingInformation
 class MeetingTime(models.Model):
-    type = models.CharField(max_length=20, default="CLASS")
-    start = models.TimeField(null=True, blank=True)
-    end = models.TimeField(null=True, blank=True)
+    """Models a meeting time."""
+    delivery_method = models.CharField(max_length=255, null=True, blank=True)
+    start_date = models.DateTimeField(null=True)
+    end_date = models.DateTimeField(null=True)
+    start_time = models.TimeField(null=True, blank=True)
+    end_time = models.TimeField(null=True, blank=True)
     recurrence = RecurrenceField(blank=True)
     course = ForeignKey(to=Course, related_name="meeting_times", on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.type} {self.start} - {self.end}. {self.recurrence}"
+        """Return string representation."""
+        return f"{self.delivery_method} {self.start_date} {self.end_date}. {self.start_time} - {self.end_time}. {self.recurrence}"
+

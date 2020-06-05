@@ -25,6 +25,8 @@ from django.views.i18n import JavaScriptCatalog
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("RecurrenceDemo.urls")),
+    path("v1/api/", include("api.urls")),
+
 ]
 
 js_info_dict = {

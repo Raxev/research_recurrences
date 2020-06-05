@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'RecurrenceDemo.apps.RecurrencedemoConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +124,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'RecurrenceDemo', 'static')
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
