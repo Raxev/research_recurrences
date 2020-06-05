@@ -102,7 +102,7 @@ def class_date_range(start_date: 'Date',
 def calculate_cod(
         class_weekdays: Tuple[bool, bool, bool, bool, bool, bool, bool],
         class_credit_hours: int,
-        class_period_weekdays: Tuple[int, int, int, int, int, int, int]) -> float:
+        class_period_weekdays: Tuple[int, int, int, int, int, int, int]) -> Tuple[float, float]:
     """
 
     :param class_weekdays: What days will the class meet?
@@ -137,4 +137,4 @@ def calculate_cod(
 
     minutes_per_class = minutes_per_class_minus_breaks + needed_breaks * MINUTES_PER_BREAK
 
-    return minutes_per_class
+    return minutes_per_class, needed_breaks
